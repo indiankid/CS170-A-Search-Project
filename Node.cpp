@@ -3,12 +3,17 @@
 using namespace std;
 class Node {
 public:
-	int* parent;		//parent node
-	int* up;
+	Node* parent = 0;		//parent node
+	/*int* up;
 	int* down;
-	int* right;
-	int* left;
+	* right;
+	Node* left;
+	*/
 	int puzzle[9] = {};		//8 puzzle
+	int depth = 0;				//depth in tree
+	int h = 0;					//heuristic
+	int index = 0;				//where the blank is
+
 	/*
 	Node::Node(int puzz[])
 	{
@@ -29,16 +34,16 @@ public:
 		}
 		return 0;
 	}
-	bool testGoal()
+	bool testGoal(int puzz[])
 	{
-		int marker = puzzle[0];
+		int marker = puzz[0];
 
 		for (int i = 0; i < 9; i++) {
-			if (marker > puzzle[i]) {
+			if (marker > puzz[i]) {
 				return false;
 			}
 			else {
-				marker = puzzle[i];
+				marker = puzz[i];
 			}
 		}
 
