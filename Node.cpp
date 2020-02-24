@@ -4,6 +4,7 @@ using namespace std;
 class Node {
 public:
 	Node* parent = 0;		//parent node
+	Node* root = 0;
 	/*int* up;
 	int* down;
 	* right;
@@ -13,7 +14,7 @@ public:
 	int depth = 0;				//depth in tree
 	int h = 0;					//heuristic
 	int index = 0;				//where the blank is
-
+	int id;
 	/*
 	Node::Node(int puzz[])
 	{
@@ -36,26 +37,21 @@ public:
 	}
 	bool testGoal(int puzz[])
 	{
-		int marker = puzz[0];
-
-		for (int i = 0; i < 9; i++) {
-			if (marker > puzz[i]) {
+		for (int i = 0; i < 8; i++) {
+			if (puzz[i] != (i + 1) ) {
 				return false;
-			}
-			else {
-				marker = puzz[i];
 			}
 		}
 
 		return true;
 	}
-	
-	
+
+
 	//check to see if index holding 0 is in any row of the rightmost columns
 	Node moveRight(int puzz[], int index)			//works
 	{
 		Node newpuzz;
-		if ((index % 3) < 2) {			
+		if ((index % 3) < 2) {
 			newpuzz.copyPuzzle(newpuzz.puzzle, puzz);
 			int temp = newpuzz.puzzle[index + 1];
 			newpuzz.puzzle[index + 1] = newpuzz.puzzle[index];
@@ -64,13 +60,13 @@ public:
 		return newpuzz;
 	}
 
-	
-	
+
+
 	// check to see if index holding 0 is in any row of the leftmost column
 	Node moveLeft(int puzz[], int index)		//works
 	{
 		Node newpuzz;
-		if ((index % 3) > 0) {			
+		if ((index % 3) > 0) {
 			newpuzz.copyPuzzle(newpuzz.puzzle, puzz);
 			int temp = newpuzz.puzzle[index - 1];
 			newpuzz.puzzle[index - 1] = newpuzz.puzzle[index];
@@ -84,7 +80,7 @@ public:
 	Node moveUp(int puzz[], int index)			//works
 	{
 		Node newpuzz;
-		if ((index - 3) >= 0) {			
+		if ((index - 3) >= 0) {
 			newpuzz.copyPuzzle(newpuzz.puzzle, puzz);
 			int temp = newpuzz.puzzle[index - 3];
 			newpuzz.puzzle[index - 3] = newpuzz.puzzle[index];
@@ -97,7 +93,7 @@ public:
 	Node moveDown(int puzz[], int index)				//works
 	{
 		Node newpuzz;
-		if ((index + 3) < 9) {			
+		if ((index + 3) < 9) {
 			newpuzz.copyPuzzle(newpuzz.puzzle, puzz);
 			int temp = newpuzz.puzzle[index + 3];
 			newpuzz.puzzle[index + 3] = newpuzz.puzzle[index];
@@ -105,7 +101,7 @@ public:
 		}
 		return newpuzz;
 	}
-	
+
 	void copyPuzzle(int puzz[], int puzz2[])			//works
 	{
 		for (int i = 0; i < 9; i++) {
@@ -120,7 +116,7 @@ public:
 			if ((i % 3) == 2) {						//columns
 				cout << endl;
 			}
-	
+
 		}
 	}
 };
