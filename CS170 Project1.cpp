@@ -209,7 +209,7 @@ int main()
     s.root = &s;
     int user = 0;           //user choice of which search they want
    // Node p;
-    cout << "Enter Numbers for s" << endl;
+    cout << "Enter 8 numbers to create a puzzle. Press enter after each number." << endl;
     for (int i = 0; i < 9; i++) {
         cin >> s.puzzle[i];
        // cout << s.puzzle[i];
@@ -250,7 +250,8 @@ int main()
     //q.push(p);
     q.push(s);
     //visited.push_back(s);
-    
+    int Nodecounter = -1;       //dont count the starting node as expanded
+    int qcounter = q.size();
     std::clock_t start;
     double duration;
 
@@ -259,7 +260,11 @@ int main()
     {
      //cout << "Queue size: " << q.size() << endl;
         Node top = q.top();
+        if (qcounter < q.size()) {
+            qcounter = q.size();
+        }
         q.pop();
+        Nodecounter++;
         if (top.root != 0) {
             cout << "Expanding State" << endl;
         }
@@ -271,6 +276,8 @@ int main()
         //cout << " Popping node, depth:" << top.depth << " , h: " << top.h << endl;
         if (top.testGoal(top.puzzle)) {
            cout << "Goal found!" << endl;
+           cout << "To solve this problem the search algorithm expanded a total of " << Nodecounter << " nodes." << endl;
+           cout << "The maximum number of nodes in the queue at any one time was " << qcounter << endl;
            duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
            cout << "Total time taken to complete Search " << duration << " seconds" << endl;
             return 0;
